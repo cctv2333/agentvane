@@ -19,7 +19,7 @@ AgentVane 是一套**可移植的 AI 开发工作流程纪律（Skill）**。它
 | 路径 | 用途 | 可移植性 |
 |---|---|---|
 | `agentvane.md` | **权威主文档**（通用纪律） | ✅ 通用 |
-| `skills/agentvane/SKILL.md` | **DeepSeek Harness 技能**（带 frontmatter） | ✅ 通用 |
+| `SKILL.md`（仓库根） | **技能本体**——Chatbox「从 GitHub 仓库安装」即识别它 | ✅ 通用 |
 | `AGENTS.md` | **仓库级强制规则模板**（复制到项目根，Codex/Cursor 每轮自动注入） | ✅ 通用模板 |
 | `docs/reference.md` | **详细排障参考**（PowerShell 编码 / Node / 上下文管理），按需读不自动注入 | ✅ 通用 |
 
@@ -28,7 +28,7 @@ AgentVane 是一套**可移植的 AI 开发工作流程纪律（Skill）**。它
 ## 各工具如何导入
 
 ### DeepSeek Harness（`skill` 技能）
-把 `skills/agentvane/SKILL.md` 放到本机技能目录：
+把仓库根的 `SKILL.md` 放到本机技能目录：
 ```
 ~/.dsh/skills/agentvane/SKILL.md
 ```
@@ -37,7 +37,14 @@ AgentVane 是一套**可移植的 AI 开发工作流程纪律（Skill）**。它
 ### Codex / Cursor / Copilot / 其它读 `AGENTS.md` 的工具
 把 `AGENTS.md` 复制到项目根目录。这些工具会**每轮自动注入**它（无需触发）——这是"一定执行"最强的一条通道。
 
-### Claude Code / Chatbox（读 `CLAUDE.md`）
+### Chatbox（从 GitHub 仓库安装）
+`Settings → Skills → Install from a GitHub repo`，填：
+```
+https://github.com/cctv2333/agentvane
+```
+Chatbox 读取**仓库根的 `SKILL.md`**，加载为 `/agentvane` 技能。**关键：技能必须在仓库根目录**——本仓库已是单技能布局（根目录直接有 `SKILL.md`，这正是"未找到该技能"的修复点）。
+
+### Claude Code / 其它读 `CLAUDE.md` 的工具
 把 `AGENTS.md` 内容复制为项目根 `CLAUDE.md`，或直接让 AI 读 `agentvane.md`。
 
 ### 通用
