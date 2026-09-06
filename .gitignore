@@ -1,0 +1,28 @@
+# --- secrets / sensitive (never commit) ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+config*.json      # keep config.example.json instead
+*.log
+*.bak
+edge-profile-*/
+token*.txt
+.github/actions/**.env
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# --- node ---
+node_modules/
+*.tgz
+npm-debug.log*
+
+# --- scratch ---
+_tmp/
+*.tmp
