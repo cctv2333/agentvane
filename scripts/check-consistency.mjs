@@ -48,9 +48,10 @@ for (const file of skills) {
 
 // --- 2. phrases that must NOT drift out of copies that both carry them ---
 const mustCarry = [
+  ["实事求是", ["skills/agentvane/SKILL.md", "skills/agentvane/reference.md"]],
   ["宁可慢，不造假", ["skills/agentvane/SKILL.md"]],
   ["指令/数据边界", ["skills/agentvane/SKILL.md"]],
-  ["禁止静默", ["skills/agentvane/SKILL.md", "skills/agentvane/reference.md"]],
+  ["禁止静默", ["skills/agentvane/reference.md"]],
 ];
 for (const [phrase, files] of mustCarry) {
   for (const f of files) {

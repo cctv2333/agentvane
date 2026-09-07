@@ -11,7 +11,7 @@ AgentVane 是一个**小而独立、可组合**的 AI 开发技能集合（skill
 
 | 技能 | 是什么 | 何时触发 |
 |---|---|---|
-| [`skills/agentvane`](skills/agentvane/SKILL.md) | **开发工作流程纪律**：第 0 步台账协议、九步主线、安全/署名红线、指令-数据边界、真实验证（按分级） | 开始/继续写代码、跑测试构建、准备提交时 |
+| [`skills/agentvane`](skills/agentvane/SKILL.md) | **实事求是·工程化纪律**：强制内核（4 条思维硬规则 + 第 0 步台账 + 安全红线 + 轻重缓急/主次矛盾 + 实事求是问题回路）+ 按需方法论 | 开始/继续写代码、跑测试构建、准备提交、或遇问题需诊断/查根因/复盘时 |
 | [`skills/windows-gotchas`](skills/windows-gotchas/SKILL.md) | **Windows/PowerShell/Node 排障**：中文编码/输出乱码、BOM、幂等命令、Node 换行转义等 | 报"乱码/编码/PowerShell 报错/Node 脚本失败"时 |
 
 > 支持：DeepSeek Harness / Codex / Cursor / Copilot / Chatbox / Claude Code（均按 `SKILL.md` 规范）。
