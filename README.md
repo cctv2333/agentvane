@@ -56,6 +56,7 @@ npx skills@latest add cctv2333/agentvane
 - `scripts/list-skills.sh` —— 枚举技能。
 - `scripts/check-consistency.mjs` —— 校验 frontmatter（name=文件夹名、无 BOM、有 description）+ 关键纪律句不漂移；`--check` 可作门禁。
 - `scripts/link-skills.sh` —— 链接到 agent 自动发现目录。
+- `scripts/pre-commit.sh` —— **提交门禁**：gitleaks 密钥扫描 + check-consistency + list-skills，任一失败即阻止提交；已挂 `.git/hooks/pre-commit`（`core.hooksPath=.githooks`）。
 
 ---
 

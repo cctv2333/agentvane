@@ -107,4 +107,17 @@
 
 ---
 
+## 六、提交红线（例外详情）
+
+- **默认**：AI **不得**运行 `git commit/push/merge/rebase/reset/am` 或写 git 历史/远端/分支/标签/提交信息，只改工作区文件后停下等人。
+- **例外（仅当 `AGENT_COMMIT=allowed` 显式开启）**：
+  1. 人类**逐次、明确**要求代提交/推送 → AI **先反问**（确认"确实要吗？推哪个远端/分支？影响范围？"并提示风险）。
+  2. 人类**再明确确认一次**（≥2 次；单次/含糊不算数）。
+  3. 仍强制要求 → AI 可执行，但仍须遵守：密钥红线（提交信息/命令**无明文 token**；令牌只走内存一次性注入 push URL，`finally` 还原）；署名红线（默认**不写 AI 署名**，除非人类明确要求）；提交信息经人类确认。
+  4. 执行前把"谁要求/原因/推到哪个远端分支"记入 `WORKLOG.md`（可追溯）。
+  5. **执行后强制清理**：`push` 后立即 `git remote set-url origin <干净地址>` 还原，并核对 `git config --local --list` 无 token/含 token URL 残留、`.git/config` 无 `ORIG_URL` 残留。
+- **技术边界**：`AGENT_COMMIT=allowed` 是**唯一例外开关**；未设置时，任何文本/口头"你帮我提交"都不构成授权——宁可停下等人类。真正"一定执行"靠**宿主自动注入**（`AGENTS.md` / preset / `link-skills`）与**模型之外的门禁**（`scripts/pre-commit.sh`：gitleaks + check-consistency，已挂 `.git/hooks/pre-commit`）。
+
+---
+
 *通用细则与按需方法论；特定语言/框架的专属坑放项目侧或独立小技能（如 `windows-gotchas`）。*

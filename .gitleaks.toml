@@ -1,0 +1,37 @@
+# gitleaks 自定义规则 —— 继承 gitleaks 默认规则并补充常见密钥模式
+# 用法：
+#   本地扫描:        gitleaks detect --source . --redact
+#   提交前扫描:      gitleaks protect --staged --redact
+#   提交前 hook:     bash scripts/pre-commit.sh   (已在 .git/hooks/pre-commit 挂载)
+#   全库扫描:        gitleaks detect --source . --redact --exit-code 1
+
+title = "agentvane 密钥扫描规则"
+
+[extend]
+useDefault = true
+
+# DeepSeek / OpenAI / Anthropic API Key
+[[rules]]
+id = "custom-openai-compat-api-key"
+description = "LLM API Key (sk-, sk-ant-, sk-proj-)"
+regex = '''\bsk-(?:proj-|ant-)?[A-Za-z0-9_-]{20,}\b'''
+secretGroup = 0
+entropy = 3.5
+keywords = ["deepseek", "openai", "anthropic", "sk-", "sk-ant-"]
+
+# GitHub Personal Access Token (ghp_ / github_pat_)
+[[rules]]
+id = "custom-github-pat"
+description = "GitHub Personal Access Token (ghp_ / github_pat_)"
+regex = '''\b(?:ghp_|github_pat_)[A-Za-z0-9_]{30,}\b'''
+secretGroup = 0
+keywords = ["github", "ghp_", "github_pat_"]
+
+# 配置文件中的密钥赋值：key= 或 key: 形式（覆盖 .env / config.json / yaml）
+[[rules]]
+id = "custom-key-assignment"
+description = "配置文件中的密钥赋值"
+regex = '''(?i)(api[_-]?key|secret|token|password|passwd|private[_-]?key)\s*[:=]\s*['"]?[A-Za-z0-9_./+=-]{16,}'''
+secretGroup = 0
+entropy = 3.0
+keywords = ["api_key", "apikey", "api-key", "secret", "token", "password", "private_key"]

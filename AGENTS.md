@@ -31,7 +31,7 @@
 1. **技能小而独立**：一个技能 = `skills/<name>/SKILL.md`（可带同目录参考文件）。`name` 小写 + 连字符，且**等于所在文件夹名**。
 2. **frontmatter 瘦身**：只 `name` + 单行 `description`（写明 "Use when …"）。**不加**非标准字段。
 3. **触发词要窄**：流程纪律与具体排障分开（`agentvane` = 流程；`windows-gotchas` = 排障）。
-4. **改完必须过一致性检查**：`node scripts/check-consistency.mjs`（可加 `--check` 做门禁）；`bash scripts/list-skills.sh` 确认枚举正常。
+4. **改完必须过提交门禁**：`bash scripts/pre-commit.sh`（跑 gitleaks 密钥扫描 + `check-consistency --check` + `list-skills`，任一失败即阻止提交）；本地已挂 `.git/hooks/pre-commit`。
 5. **新增/改技能后**：更新 `README.md` 的技能清单与 `CONTEXT.md`（如涉及共享语言）。
 6. **通用 vs 专属**：本仓库只放通用纪律；特定语言/框架的坑要么加"（若项目为 X）"限定，要么放入独立的窄技能。
 7. 改文档/脚本注意 UTF-8（详见 `skills/windows-gotchas`）。
