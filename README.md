@@ -68,7 +68,7 @@ npx skills@latest add cctv2333/agentvane
 
 ## 许可
 
-[MIT](LICENSE) · 版权人见 LICENSE（建议填真实姓名/组织以增强法律效力）。
+[MIT](LICENSE) · 版权人见 LICENSE。
 
 ---
 
