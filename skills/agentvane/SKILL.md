@@ -51,6 +51,16 @@ description: 实事求是·工程化纪律。Use when starting or continuing any
 
 遇阻 → 先**诊断**（A1 第 4 条，弄清原因）→ **有边界地修**（2 次尝试内定位）→ 仍不行则**记录 + 查资料/换路径**。**不无限死磕，也不一遇阻就退。**
 
+### A6 高频复现坑（常提醒）
+
+这类坑**复现率最高**，遇到即按 §A4 回路处理，并查 `windows-gotchas` / `reference.md` 拿精确解法：
+- **编码/乱码**（Windows/PowerShell：读/写 UTF-8、BOM、GBK、chcp、`.ps1` 编码）。
+- **命令执行静默失败**（PowerShell 不支持 heredoc/`&&`；`-or`/`-and` 返回布尔；`2>&1` 让 stderr 变 ErrorRecord；Node `stdio:'pipe'` 在沙箱 EPERM）。
+- **JSON/配置写回未校验**（`JSON.parse→改→stringify→写回后立即再 parse` 验证；语言包/配置键插入后必校验）。
+- **"改了没生效"**（核对产物版本 / 进程 / 数据目录；配置磁盘优先，改后递增版本号）。
+- **headless/mock 会撒谎**（mock 须模拟真实 nil/空容器；`nil→JSON null→模板 .length 抛错`）。
+- **工具/截图故障死磕**（禁止死磕：诊断→有边界修→记录+查资料/换路径）。
+
 ---
 
 ## B. 方法论指南（按需、薄路由）

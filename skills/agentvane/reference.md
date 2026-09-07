@@ -35,6 +35,8 @@
 - **构建/打包**：前端 `npm build` → 桌面 `wails build`（**禁用 `-clean`**，会清空产物删掉安装包）。失败逐层看日志（如 wails build 日志 → npm build 日志）。
 - **真机验证**：涉 UI/运行时，打包后必须用户真机测试通过才提交；交付前核对产物时间戳 + 提示彻底退出旧进程。
 - **UI 几何验证**：用 `getBoundingClientRect` + 像素扫描（非单元素 display/width）；视觉模型只作参考。
+- **headless/mock 会撒谎**：mock 必须模拟真实行为（`nil → JSON null → 模板 .length 抛错`）；返回 slice/map 的方法 nil 转空容器，模板侧访问 `.length`/字段要防御。
+- **UI"点了没反应"多为结构 bug**：父容器 `*ngIf=false` / 闭合标签被吃，用真实渲染截图 + 检查 DOM 层级定位，别只靠脚本数字。
 
 ### 交付前 5 分钟验收清单（导入/存储/持久化类）
 1. 正向：标准合规文件导入，界面正常。
@@ -61,6 +63,7 @@
 - PowerShell 多行/命令链：不支持 heredoc/`&&`；多行 body 写文件再 `git commit -F`，提交后 `git log --oneline -2`+`git status --short` 验证。
 - 字节 vs 字符：截断统一用 **字符计数**（Go 用 `[]rune`），别用字节长度切片。
 - 返回 slice/map 的方法：nil 转空容器；模板侧访问 `.length`/字段要防御。
+- 引擎默认参数（轮数/预算/截断）是防膨胀安全值，接入用户配置时必须跟随；"执行了但结果不进上下文"最误导模型。
 
 ---
 

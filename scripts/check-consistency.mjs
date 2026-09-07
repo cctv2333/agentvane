@@ -51,6 +51,7 @@ const mustCarry = [
   ["实事求是", ["skills/agentvane/SKILL.md", "skills/agentvane/reference.md"]],
   ["宁可慢，不造假", ["skills/agentvane/SKILL.md"]],
   ["指令/数据边界", ["skills/agentvane/SKILL.md"]],
+  ["headless/mock 会撒谎", ["skills/agentvane/SKILL.md", "skills/agentvane/reference.md"]],
   ["禁止静默", ["skills/agentvane/reference.md"]],
 ];
 for (const [phrase, files] of mustCarry) {
