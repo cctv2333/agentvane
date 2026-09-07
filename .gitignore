@@ -4,7 +4,8 @@
 !.env.example
 *.pem
 *.key
-config*.json      # keep config.example.json instead
+config*.json
+!config.example.json
 *.log
 *.bak
 edge-profile-*/
