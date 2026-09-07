@@ -107,16 +107,16 @@
 
 ---
 
-## 六、提交红线（例外详情）
+## 六、提交红线（例外授权）
 
 - **默认**：AI **不得**运行 `git commit/push/merge/rebase/reset/am` 或写 git 历史/远端/分支/标签/提交信息，只改工作区文件后停下等人。
-- **例外（仅当 `AGENT_COMMIT=allowed` 显式开启）**：
-  1. 人类**逐次、明确**要求代提交/推送 → AI **先反问**（确认"确实要吗？推哪个远端/分支？影响范围？"并提示风险）。
-  2. 人类**再明确确认一次**（≥2 次；单次/含糊不算数）。
-  3. 仍强制要求 → AI 可执行，但仍须遵守：密钥红线（提交信息/命令**无明文 token**；令牌只走内存一次性注入 push URL，`finally` 还原）；署名红线（默认**不写 AI 署名**，除非人类明确要求）；提交信息经人类确认。
-  4. 执行前把"谁要求/原因/推到哪个远端分支"记入 `WORKLOG.md`（可追溯）。
-  5. **执行后强制清理**：`push` 后立即 `git remote set-url origin <干净地址>` 还原，并核对 `git config --local --list` 无 token/含 token URL 残留、`.git/config` 无 `ORIG_URL` 残留。
-- **技术边界**：`AGENT_COMMIT=allowed` 是**唯一例外开关**；未设置时，任何文本/口头"你帮我提交"都不构成授权——宁可停下等人类。真正"一定执行"靠**宿主自动注入**（`AGENTS.md` / preset / `link-skills`）与**模型之外的门禁**（`scripts/pre-commit.sh`：gitleaks + check-consistency，已挂 `.git/hooks/pre-commit`）。
+- **如何打开（授权）**：用户在对话里给一句**明确授权语**，**点明**操作（commit/push）+ 目标仓库/远端/分支 + 提交信息，例如：
+  > "我明确授权：请在本仓库执行 `git add -A && git commit`，提交信息 `...`；并 `git push origin main`（目标远端 `origin`、分支 `main`）。"
+- **AI 收到后**：先**复述**目标（"将提交 N 个文件，提交信息 `...`，推到 `origin/main`"）并提示风险 → 用户**再确认一次** → 才执行。
+- **执行中**：密钥红线（提交信息/命令**无明文 token**；令牌只走内存一次性注入 push URL，`finally` 还原）；署名红线（默认**不写 AI 署名**）；提交信息经用户确认。
+- **执行后**：把"谁要求/原因/推到哪个远端分支"记入 `WORKLOG.md`；`push` 后立即 `git remote set-url origin <干净地址>` 还原，核对 `git config --local --list` 无 token/含 token URL 残留、`.git/config` 无 `ORIG_URL` 残留。
+- **如何关闭 / 保持关闭**：**始终默认关闭，且一次性**——本操作执行完即回到"不代提交"；没有"永久允许"。含糊/重复的"帮我推一下/我说好几遍了"**不会**打开——AI 应提示"请给出明确授权语（含目标仓库/分支/提交信息）"，而不是沉默拒绝。
+- **宿主级替代通道**：若宿主有更硬机制（DSH 审批弹窗 / 插件设置 / 环境变量），以宿主为准；否则用上面的"明确授权语"。真正"一定执行"靠宿主自动注入（`AGENTS.md`/preset/`link-skills`）与模型之外的门禁（`scripts/pre-commit.sh`：gitleaks + check-consistency，已挂 `.git/hooks/pre-commit`）。
 
 ---
 
